@@ -5,7 +5,12 @@
 		</div>
 		<ul>
 		<% @user.errors.full_messages.each do |msg| %>
-		<li>* <%= msg %></li> <% end %>
+			<% if not msg.include? "Password digest" %>
+				<li><%= msg %></li>
+			<% else %>
+				<li>Password can't be blank</li>
+			<% end %>
+		<% end %>
 		</ul>
 	</div>
 <% end %>
