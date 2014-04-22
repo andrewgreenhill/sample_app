@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true,
   					format: { with: VALID_EMAIL_REGEX },
   					uniqueness: { case_sensitive: false}
-  validates :password, length: { minimum: 6 } #, presence: true (removed because this is dealt-with elsewhere)
+  validates :password, length: { minimum: 6 } #, presence: true (removed because its dealt-with elsewhere)
   validates :password_confirmation, presence: true
 
   private
