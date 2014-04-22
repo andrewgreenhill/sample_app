@@ -1,15 +1,24 @@
 SampleApp::Application.routes.draw do
-  resources :users
 
-  #get "users/new" #not needed anymore (since we added the line "resources :users")
+  #Set up RESTful routes:
+  resources :users #get "users/new" was used originally but was dropped when we added "resources :users"
 
+  resources :sessions, only: [:new , :create, :destroy]
+
+  #Customise some paths:
   root to: 'static_pages#home'
-
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
 
   match '/signup', to: 'users#new'
+
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete #invoke using an HTTP DELETE request
+  #See that the signin and signout paths are custom, however the route 
+  #for *creating* a session is simply the default i.e. [resource name]_path
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
