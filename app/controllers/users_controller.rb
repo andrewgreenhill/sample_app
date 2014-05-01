@@ -18,4 +18,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      #Handle a successful update:
+      flash[:success] = "Profile updated"
+      sign_in @user #Done because the remember token gets reset when the user is saved
+      redirect_to @user
+    else
+      #Handle failed update attempt:
+      render 'edit'
+    end
+  end
+
 end
