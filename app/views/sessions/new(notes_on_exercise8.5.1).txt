@@ -1,0 +1,22 @@
+NOTE: I used http://stackoverflow.com/questions/10489314/how-can-i-use-form-tag-as-opposed-to-form-for-in-this-file
+to do exercise 8.5.1 1 :-)
+The answer that says:
+ 12 down vote
+	
+
+I am working on the same step of the tutorial, and your question helped me finding my way.
+
+The use of label and text_field, instead of label_tag and text_field_tag is working fine, and you don't have to change the controller code (this produce the same HTML code as with the original form_for method).
+
+<%= form_tag(sessions_path) do %>
+  <%= label :session, :email %>
+  <%= text_field :session, :email %>
+
+  <%= label :session, :password %>
+  <%= password_field :session, :password %>
+
+  <%= submit_tag("Sign in", class: "btn btn-large btn-primary") %>
+<% end %>
+
+You can read details in http://guides.rubyonrails.org/form_helpers.html#dealing-with-model-objects
+
