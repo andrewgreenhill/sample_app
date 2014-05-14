@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_user2,only: [:new, :create]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
 
@@ -42,7 +43,13 @@ class UsersController < ApplicationController
   end 
 
   def destroy
-    User.find(params[:id]).destroy
+    @user = User.find(params[:id])
+    if current_user?(@user)
+      flash[:error] = "I won't let you destroy yourself!"
+    else
+      User.find(params[:id]).destroy
+      flash[:alert] = "Destroyed the user."
+    end
     redirect_to users_url
   end
 
@@ -52,6 +59,13 @@ class UsersController < ApplicationController
     unless signed_in?
       store_location
       redirect_to signin_url, notice: "Please sign in."
+    end
+  end
+
+  def signed_in_user2 #Prevent signed-in users from accessing new and create methods
+    if signed_in?
+      flash[:error] = "You are already signed in!"
+      redirect_to root_path
     end
   end
 

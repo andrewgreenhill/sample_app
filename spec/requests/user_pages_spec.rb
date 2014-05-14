@@ -40,7 +40,13 @@ describe "User pages" do
         it "should be able to delete another user" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
+
         it { should_not have_link('delete', href: user_path(admin)) }
+        #AG's exercise 9.6#9 code is commented-out below:
+        #it "admin should not be able to delete itself" do
+        #  expect { click_link('delete me') }.to change(User, :count).by(0)
+        #end
+
       end
     end
 
@@ -83,7 +89,7 @@ describe "User pages" do
 				fill_in "Name",					with: "Example User"
 				fill_in "Email",				with: "user@example.com"
 				fill_in "Password",			with: "foobar"
-				fill_in "Confirmation", with: "foobar"
+				fill_in "Confirm Password", with: "foobar"
 			end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -105,6 +111,10 @@ describe "User pages" do
     	sign_in 	user
     	visit edit_user_path(user)
     end
+
+    #AG thinks that the newer version of the tutorial adds an import part here,
+    #see http://www.railstutorial.org/book/updating_and_deleting_users#code-forbidden_admin_test
+    #That stops users editing protected attributes!
 
     describe "page" do
       it { should have_selector('h1',    text: "Update your profile") }

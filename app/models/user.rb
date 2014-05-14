@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation #Don't include :admin
   has_secure_password
   
   before_save { self.email.downcase! } #WAS: before_save { |user| user.email = email.downcase }

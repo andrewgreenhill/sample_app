@@ -5,4 +5,11 @@
 | 	<%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %>
 		<% #Tutorial p517 notes that this requires JavaScript but there is another way %>
 	<% end %>
+
+<!-- Exercise 9.6 #9 is commented-out below:
+	<% if current_user.admin? && current_user?(user) %>
+| 	<%= link_to "delete me", user, method: :delete, data: { confirm: "You sure?" } %>
+	<% end %>
+-->
+
 </li>
